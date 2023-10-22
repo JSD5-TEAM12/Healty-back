@@ -12,7 +12,7 @@ const connectServer = require('./config/db')
 dotenv.config()
 const app = express()
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8050;
 
 // use middleware
 // app.use(express.json());
@@ -32,7 +32,7 @@ const startSever = async ()=>{
     await connectServer.connectDB();
     app.listen(port,()=>{
         console.log(`Server is running`)
-        console.log(`http://localhost:5000/`)
+        console.log(`http://localhost:8050/`)
     })
 }
 
