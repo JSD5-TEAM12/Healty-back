@@ -17,13 +17,15 @@ const express = require('express')
 const router = express.Router();
 // import controller
 const { read, list, create, update, del } = require('../controllers/activity')
+// import middle ware
+const {authenticateToken} = require('../middleware/token')
 
 
-router.get('/activities', list)
-router.get('/activities/:id', read)
-router.post('/activities', create)
-router.put('/activities/:id', update)
-router.delete('/activities/:id', del)
+router.get('/activities',authenticateToken,list)
+router.get('/activities/:id',authenticateToken,read)
+router.post('/activities',authenticateToken,create)
+router.put('/activities/:id',authenticateToken,update)
+router.delete('/activities/:id',authenticateToken, del)
 
 
 module.exports = router
