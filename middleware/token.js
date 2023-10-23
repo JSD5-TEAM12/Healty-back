@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 
-const authenticateToken = (req, res, next) =>{
-    const tokenWithBearer = req.body.authorization;
-    // console.log(tokenWithBearer)
+const authenticateToken = async (req, res, next) =>{
+    const tokenWithBearer = await req.body.authorization;
+    console.log(tokenWithBearer)
     if (!tokenWithBearer) {
         console.log('not token')
         return res.sendStatus(401);
