@@ -10,14 +10,19 @@ exports.test = async (req, res) => {
 
 exports.register = async (req, res, next) => {
     try {
-        const register_at = new Date();
-        const hasspass = bcrypt.hashSync(
-            req.body.password, +process.env.SALT_ROUND
-        );
-        // const image = req.file;
         const image = req.body.image;
         const username = req.body.username
 
+        const oldData = await tb_user.findOne({username});
+        if(oldData){
+            return res.status(409).send("User already exist. Please login!")
+        }
+
+        const register_at = new Date();
+        const hashpass = bcrypt.hashSync(
+            req.body.password, +process.env.SALT_ROUND
+        );
+        
         const result = await cloudinary.uploader.upload(image, {
             folder: 'react-image',
             public_id: username,
@@ -28,11 +33,12 @@ exports.register = async (req, res, next) => {
         const new_user = {
             ...req.body,
             register_at,
-            password: hasspass,
+            password: hashpass,
             image: {
                 public_id: username ,
                 url: imageUrl,
             },
+            email:email.toLowercase()
         };
         await tb_user.create(new_user);
         // console.log(new_user)
@@ -64,8 +70,8 @@ exports.login = async (req, res, next) => {
             console.log('User fot found')
         }
 
-        const hassedPass = findUser.password;
-        const checkPassword = bcrypt.compareSync(password, hassedPass);
+        const hashedPass = findUser.password;
+        const checkPassword = bcrypt.compareSync(password, hashedPass);
 
         if (!checkPassword)
             res
