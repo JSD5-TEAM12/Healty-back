@@ -18,6 +18,7 @@ exports.read = async (req, res) => {
     try{
         const id = req.params.id
         // const user_id = req.body.id
+        // const activityData = await activities.findOne({_id:id}).exec()
         const activityData = await activities.findOne({_id: id}).exec()
         res.send(activityData)
         console.log(activityData);
