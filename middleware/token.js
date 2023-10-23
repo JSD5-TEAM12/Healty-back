@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const authenticateToken = (req, res, next) =>{
     const tokenWithBearer = req.body.authorization;
-    // console.log(tokenWithBearer)
+    console.log(tokenWithBearer)
     if (!tokenWithBearer) {
         console.log('not token')
         return res.sendStatus(401);
