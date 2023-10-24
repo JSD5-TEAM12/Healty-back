@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const authenticateToken = async (req, res, next) =>{
-    const tokenWithBearer = await req.body.authorization;
+    const tokenWithBearer = await req.header.authorization;
     console.log(tokenWithBearer)
     if (!tokenWithBearer) {
         console.log('not token')
