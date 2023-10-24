@@ -82,19 +82,18 @@ exports.login = async (req, res, next) => {
         const payload = {
             userId: findUser._id,
             firstname: findUser.firstname,
-            lastname: findUser.lastname
+            lastname: findUser.lastname,
+            username : findUser.username
         }
         const token = tokens.genToken(payload);
         res
             .status(200)
             .send({
-                username,
-                firstname: findUser.firstname,
-                lastname: findUser.lastname,
+                payload,
                 token,
                 message: "login success",
             });
-
+        return token
     } catch (error) {
         next(error)
     }
