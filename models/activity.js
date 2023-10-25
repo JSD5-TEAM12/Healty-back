@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 
 const activitySchema = mongoose.Schema({
     user_id: { type: Schema.Types.ObjectId, ref: tb_user, required: true },
+    title: {type: String, require: true},
     desc: { type: String, required: true },
     type: { type: String, required: true },
     date: { type: Date, required: true },
