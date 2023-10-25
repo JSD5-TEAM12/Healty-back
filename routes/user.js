@@ -1,25 +1,24 @@
 const express = require('express')
 const router = express.Router();
-// const cloudinary = require('../utils/cloundunary.js');
 const multer = require('multer');
 const upload = multer();
-const bcrypt = require('bcrypt')
-const cloudinary = require('../utils/cloudinary')
-const tb_user = require('../models/users')
 
 
 // import controller
-const { login,register,update,deleteID,test,postimage} = require('../controllers/user')
+const { login,register,update,deleteID,test,Getchart} = require('../controllers/user')
 
   
 // import verifly token
 const {authenticateToken} = require('../middleware/token')
 
 
-
+// login and register
 router.get('/',test)
 router.post('/login',login)
 router.post('/register',upload.single("image"),register)
+
+// Chart
+router.get('/',authenticateToken,Getchart)
 
 
 // router.put('/user/:id',update)

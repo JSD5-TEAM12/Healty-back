@@ -42,27 +42,6 @@ exports.create = async (req, res) => {
     }
 }
 
-// exports.create = async (req, res) => {
-//     try {
-//         const { user_id, type, desc, date, duration, created_at } = req.body;
-
-//         const activityData = new activities({
-//             user_id: user_id, 
-//             type: type,
-//             desc: desc,
-//             date: date,
-//             duration: duration,
-//             created_at: created_at,
-//         });
-
-//         const savedActivity = await activityData.save();
-//         res.send(savedActivity);
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).send('Error');
-//     }
-// }
-
 exports.update = async (req, res) => {
     try{
         const id = req.params.id
