@@ -128,3 +128,13 @@ exports.deleteID = async (req, res, next) => {
         next(error);
     }
 };
+
+exports.Getchart = async (req,res,next)=>{
+    try {
+        const user_id = req.body.id
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Server error');
+    }
+};
