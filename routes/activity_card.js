@@ -21,10 +21,10 @@ const { read, list, create, update, del } = require('../controllers/activity')
 const {authenticateToken} = require('../middleware/token')
 
 
-router.get('/activities',authenticateToken,list)
+router.get('/activity/:id',authenticateToken,list)
 router.get('/activities/:id',authenticateToken,read)
 router.post('/activities',authenticateToken,create)
-router.put('/activities/:id',authenticateToken,update)
+// router.put('/updateActivity:id',authenticateToken,update)
 router.delete('/activities/:id',authenticateToken, del)
 
 

@@ -13,19 +13,25 @@ dotenv.config()
 const app = express()
 
 const port = process.env.PORT || 8050;
-const corsOptions = {
-    origin: 'http://localhost:5173', // Replace with your specific origin
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
-  };
-  
+//const corsOptions = {
+    // origin: 'http://localhost:5173', // Replace with your specific origin
+    // methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    // preflightContinue: false,
+    // optionsSuccessStatus: 204,
+    // exposedHeaders: ['authorization'],
+  //};
+
 // use middleware
 // app.use(express.json());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({extended:true}));
 app.use(morgan('dev'));
-app.use(cors(corsOptions));
+//app.use(cors(corsOptions));
+app.use(
+    cors({
+      exposedHeaders: ['authorization'], // Specify the headers that you want to expose
+    })
+  );
 app.use(bodyParser.json({limit : '10mb'}));
 
 
