@@ -19,6 +19,7 @@ router.post('/register',upload.single("image"),register)
 
 // Get user profile
 router.get('/profile/:id',authenticateToken,getUser)
+router.put('/update/:id',authenticateToken,upload.single("image"),update)
 
 // Chart
 router.get('/',authenticateToken,Getchart)
