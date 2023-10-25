@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 
 const activityTypeSchema = mongoose.Schema({
     type_id: { type: String, required: true, unique: true },
-    name_type: { type: String, required: true, unique: true },
-    image: { public_id: { type: String }, url: { type: String } }
+    name_type: { type: String, required: true, unique: true }
 });
 
 module.exports = mongoose.model('activitiy_type', activityTypeSchema)
