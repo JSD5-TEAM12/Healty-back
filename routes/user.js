@@ -5,7 +5,7 @@ const upload = multer();
 
 
 // import controller
-const { login,register,update,deleteID,test,Getchart} = require('../controllers/user')
+const { login,register,update,deleteID,test,Getchart,getUser} = require('../controllers/user')
 
   
 // import verifly token
@@ -16,6 +16,9 @@ const {authenticateToken} = require('../middleware/token')
 router.get('/',test)
 router.post('/login',login)
 router.post('/register',upload.single("image"),register)
+
+// Get user profile
+router.get('/profile',authenticateToken,getUser)
 
 // Chart
 router.get('/',authenticateToken,Getchart)
