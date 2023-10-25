@@ -22,8 +22,8 @@ const port = process.env.PORT || 8050;
   //};
 
 // use middleware
-// app.use(express.json());
 app.use(express.json({ limit: '10mb' }));
+app.use(bodyParser.json({limit : '10mb'}));
 app.use(express.urlencoded({extended:true}));
 app.use(morgan('dev'));
 //app.use(cors(corsOptions));
@@ -32,7 +32,7 @@ app.use(
       exposedHeaders: ['authorization'], // Specify the headers that you want to expose
     })
   );
-app.use(bodyParser.json({limit : '10mb'}));
+// app.use(bodyParser.json({limit : '10mb'}));
 
 
 

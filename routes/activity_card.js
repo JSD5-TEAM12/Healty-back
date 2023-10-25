@@ -24,7 +24,7 @@ const {authenticateToken} = require('../middleware/token')
 router.get('/activity/:id',authenticateToken,list)
 router.get('/activities/:id',authenticateToken,read)
 router.post('/activities',authenticateToken,create)
-router.put('/updateActivity:id',authenticateToken,update)
+router.put('/updateActivity/:id',authenticateToken,update)
 router.delete('/activities/:id',authenticateToken, del)
 
 
