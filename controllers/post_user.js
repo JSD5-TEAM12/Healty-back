@@ -10,34 +10,36 @@ exports.test = async (req,res) =>{
 
 exports.read = async(req,res) =>{
     try{
-        id = req.params.id
-        const postuser = await User_post.findOne({_id: id}).exec();
+
+        const postuser = await User_post.find().exec();
         res.send(postuser)
     }catch(err){
         console.log(err)
         res.send('Server error').status(500)
     }
 }
-exports.readall = async(req,res) =>{
-    try{
-        const postuser = await User_post.find({}).exec();
-        res.send(postuser)
-    }catch(err){
-        console.log(err)
-        res.send('Server error').status(500)
-    }
-}
+// exports.readall = async(req,res) =>{
+//     try{
+//         const postuser = await User_post.find({}).exec();
+//         res.send(postuser)
+//     }catch(err){
+//         console.log(err)
+//         res.send('Server error').status(500)
+//     }
+// }
 
 exports.create = async(req,res) =>{
     try {
 
-        const {desc,image,date,user_post_id} = req.body
-        // console.log(req.body)
+        const {desc,image,user_post_id} = req.body
+        // const userPost = User_post()
+         
         // console.log(req.file)
         // let data = req.body
         // if(req.file){
         //     data.file = req.file.filename
         // }
+        // const bufferToString = image2.buffer.toString('base64');
         const result = await cloudinary.uploader.upload(image, {
             folder: 'react-image',
             public_id: desc,
@@ -51,19 +53,39 @@ exports.create = async(req,res) =>{
             image:{
                 public_id: desc,
                 url: imageUrl,
-            },
-            date:date}
-            console.log(cardUser)
+            }}
+            
+            const newUserPost = new User_post({
+                ...cardUser,
+              });
+             await newUserPost.save()
         // const postcreate = await User_post(cardUser).save()
-            await User_post.create(cardUser)
-            res.status(201).send('create user successful');
+        
+            res.status(201).send({message:'create user successful',data:newUserPost});
     } catch (err) {
         console.log(err);
         res.status(500).send('Server error');
     }
 }
 
-
+exports.deletePost = async (req, res) => {
+    try {
+      const postId = req.params.id; 
+      const post = await User_post.findById(postId);
+  
+      if (!post) {
+        return res.status(404).send({ message: 'Post not found' });
+      }
+      await cloudinary.uploader.destroy(post.image.public_id);
+      await User_post.findByIdAndRemove(postId);
+      console.log(postId)
+  
+      res.status(200).send('Post deleted successfully' );
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Server error');
+    }
+  }
 
 // exports.deletepost = async(req,res) =>{
 //     try{
