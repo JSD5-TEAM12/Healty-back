@@ -101,30 +101,31 @@ exports.login = async (req, res, next) => {
 
 exports.getUser = async (req, res, next) => {
     try {
-        const user_id = req.userId.id;
+        const user_id = req.params.id;
         console.log('user_id :>> ', user_id);
         console.log('req.headers :>> ', req.headers);
         const result = await tb_user.findById(user_id);
+        console.log('result :>> ', result);
 
-        if (!result){
-            res.status(404).send({ message: "user is no found", statusCode: 404 });
-        }else{
-            res.status(204).send({message:"Have user :)" , statusCode:204})
-        }
+        if (!result) res.status(404).send({ message: "user is no found", statusCode: 404 });
+       
+        
 
-        console.log('can not found :>> ');
+        // console.log('can not found :>> ');
 
-        // const userData = {
-        //     username: result.username,
-        //     email: result.email,
-        //     firstname: result.firstname,
-        //     lastname: result.lastname,
-        //     height: result.height,
-        //     weight: result.weight,
-        //     image: result.image,
-        // };
+        const userData = {
+            username: result.username,
+            email: result.email,
+            firstname: result.firstname,
+            lastname: result.lastname,
+            height: result.height,
+            weight: result.weight,
+            image: result.image.url,
+        };
 
-        // res.status(200).send(userData);
+        res.status(200).send(userData);
+        // res.status(200).send({message:"Have user :)" , statusCode:200})
+
 
     } catch (error) {
         console.error(error);
