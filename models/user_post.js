@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const moment = require('moment-timezone');
+const moment = require('moment-timezone')
 const dateThailand = moment.tz('Asia/Bangkok').format('DD-MM-YYYY');
 const { Schema } = mongoose;
 const tb_user = require('./users.js')

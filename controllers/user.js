@@ -114,7 +114,6 @@ exports.register = async (req, res, next) => {
                 public_id: username,
                 url: imageUrl,
             },
-            email: email.toLowercase()
         };
         await tb_user.create(new_user);
         res.status(201).send('create user successful');
