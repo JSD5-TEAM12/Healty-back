@@ -10,10 +10,8 @@ exports.test = async (req, res) => {
 exports.login = async (req, res, next) => {
     try {
         const { username, password } = req.body
-        console.log(req.body)
 
         if (!username || !password) {
-            // console.log('User fot found')
             res.status(400).send({
                 status: 400,
                 message: "Username or password incorrect"
@@ -59,15 +57,12 @@ exports.login = async (req, res, next) => {
 exports.getUser = async (req, res, next) => {
     try {
         const user_id = req.params.id;
-        console.log('user_id :>> ', user_id);
-        console.log('req.headers :>> ', req.headers);
         const result = await tb_user.findById(user_id);
 
         if (!result) res.status(404).send({ message: "user is no found", statusCode: 404 });
 
 
 
-        // console.log('can not found :>> ');
 
         const userData = {
             username: result.username,
@@ -122,7 +117,6 @@ exports.register = async (req, res, next) => {
             email: email.toLowercase()
         };
         await tb_user.create(new_user);
-        // console.log(new_user)
         res.status(201).send('create user successful');
     } catch (error) {
         console.log(error);
@@ -168,7 +162,6 @@ exports.update = async (req, res, next) => {
                 public_id: dataUpdate.username,
                 url: finduser.image.url,
             }
-            console.log('dataUpdate.image :>> ', dataUpdate.image);
         }
 
 
